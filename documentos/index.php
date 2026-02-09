@@ -1,3 +1,8 @@
+<?php
+$dir = __DIR__; // carpeta actual
+$files = array_diff(scandir($dir), array('.', '..')); // lista todos los archivos, excluye '.' y '..'
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -31,14 +36,16 @@
 </head>
 <body>
     <h1>Documentos disponibles</h1>
-    <p>A continuación puedes consultar y descargar los documentos:</p>
+    <p>Haz clic para abrir o descargar:</p>
     <ul>
-        <li><a href="documentos/PagoDiego.jpeg" target="_blank">Comprovante pago Diego</a></li>
-        <li><a href="documentos/PagoLili.jpeg" target="_blank">Comprovante pago Lili</a></li>
-        <li><a href="documentos/PagoZequi.jpeg" target="_blank">Comprovante pago Zequi</a></li>
-        <li><a href="documentos/PagoRuben.jpeg" target="_blank">Comprovante pago Ruben</a></li>
-        <!-- Añade aquí más documentos siguiendo el mismo formato -->
+        <?php
+        foreach ($files as $file) {
+            // Solo mostrar archivos (ignorar carpetas)
+            if (is_file($file)) {
+                echo '<li><a href="' . htmlspecialchars($file) . '" target="_blank">' . htmlspecialchars($file) . '</a></li>';
+            }
+        }
+        ?>
     </ul>
 </body>
 </html>
-
